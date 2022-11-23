@@ -1,15 +1,3 @@
-var array: any = [];
-
-function getData(): void {
-    fetch('http://localhost:3000/abbigliamento').then((response) => {
-        return response.json;
-    }).then((data) => {
-        array = data;
-        console.log(array);
-        
-    });
-}
-
 class Abbigliamento {
     id: number;
     codprod: number;
@@ -37,9 +25,35 @@ class Abbigliamento {
     }
 
     getSaldoCapo(): number {
-        return (this.prezzoivaesclusa *this.saldo) / 100;
+        return (this.prezzoivainclusa *this.saldo) / 100;
     }
     getAcquistoCapo(): number {
         return this.prezzoivainclusa - this.getSaldoCapo();
     }
+}
+
+class Capo extends Abbigliamento {
+    constructor(_id: number,_codprod: number,_collezione: string,_capo: string,_modello: number,_quantita: number,_colore: string,_prezzoivaesclusa: number,_prezzoivainclusa: number,_disponibile: string,_saldo: number) {
+        super(_id,_codprod,_collezione,_capo,_modello,_quantita,_colore,_prezzoivaesclusa,_prezzoivainclusa,_disponibile,_saldo);
+    }
+}
+
+
+var array: any[] = [];
+
+getData();
+
+function getData() {
+    fetch('http://localhost:3000/capi').then((response) => {
+        return response.json();
+    }).then((data: any) => {
+        array = data;
+        console.log(array);
+        array.map(function(element) {
+            let capo = new Capo(element.id, element.codprod, element.collezione, element.capo, element.modello, element.quantita, element.colore, element.prezzoivaesclusa, element.prezzoivainclusa, element.disponibile, element.saldo);
+            console.log(capo);
+            console.log('Totale capo: ', capo.getAcquistoCapo(),'€');
+
+        });
+    });
 }
