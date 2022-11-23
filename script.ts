@@ -39,20 +39,20 @@ class Capo extends Abbigliamento {
 }
 
 
-var array: any[] = [];
+var array= [];
 
 getData();
 
 function getData() {
     fetch('http://localhost:3000/capi').then((response) => {
         return response.json();
-    }).then((data: any) => {
+    }).then((data) => {
         array = data;
         console.log(array);
-        array.map(function(element) {
+        array.map(function(element: any) {
             let capo = new Capo(element.id, element.codprod, element.collezione, element.capo, element.modello, element.quantita, element.colore, element.prezzoivaesclusa, element.prezzoivainclusa, element.disponibile, element.saldo);
             console.log(capo);
-            console.log('Totale capo: ', capo.getAcquistoCapo(),'€');
+            console.log('Totale capo: '+ capo.getAcquistoCapo(),'€');
 
         });
     });

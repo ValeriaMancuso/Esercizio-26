@@ -53,7 +53,7 @@ function getData() {
         array.map(function (element) {
             var capo = new Capo(element.id, element.codprod, element.collezione, element.capo, element.modello, element.quantita, element.colore, element.prezzoivaesclusa, element.prezzoivainclusa, element.disponibile, element.saldo);
             console.log(capo);
-            console.log('Totale capo: ', capo.getAcquistoCapo(), '€');
+            console.log('Totale capo: ' + capo.getAcquistoCapo(), '€');
         });
     });
 }
